@@ -1,5 +1,6 @@
 # 1강 Introduction 정리 내용
 
+분산 시스템이란 하나의 PC처럼 보이지만 여러 대의 PC를 사용해서 분산처리 하는 시스템을 의미함
 
 ## 분산 시스템의 투명성(Transparency in a Distributed System)
 
