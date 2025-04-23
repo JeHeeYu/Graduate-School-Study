@@ -1,4 +1,4 @@
-# Chapter 5 동기화 정리 내용
+# Chapter 6-1 동기화 정리 내용
 
 <img width="781" alt="image" src="https://github.com/user-attachments/assets/248cd6aa-5c0a-4d05-9e55-9e4c33e7de05" />
 
