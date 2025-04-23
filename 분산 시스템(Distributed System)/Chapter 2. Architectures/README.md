@@ -1,5 +1,4 @@
-![image](https://github.com/user-attachments/assets/86a9ca90-9f51-4286-bf79-98b31de67011)# Chapter 2. 아키텍처 정리 내용
-
+# Chapter 2. 아키텍처 정리 내용
 
 ## 분산 시스템 구조
 
