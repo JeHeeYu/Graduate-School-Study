@@ -115,5 +115,115 @@
 1. Monotonic reads
 - Read 상황에서 한결같은 일관성 제공
 - 동일 Input이 전파되어 Client 별로 Read 시 최종 결과에 반영되어야 함 (최종값을 읽어야 함)
-2. Monotonic Reads
-- 
+2. Monotonic Writes
+- Write 상황에서 한결같은 일관성 제공
+- 동일 Input이 전파되어 다른 Client의 Write 최종 결과에 반영되어야 함 
+3. Read Your Writes
+- 특정 Client에 대해 Write 결과가 반영된 Read 수행
+4. Write Follow Reads
+- 특정 Client가 Read 한 이후 다른 Client가 Write 수행
+
+<br>
+<br>
+
+### Content Replication and Placement 
+
+#### Replica 생성 유형 
+- Permanent   (처음부터 복사본수를 미리 정함)
+  - 처음부터 일정 숫자를 복제
+  - 시스템 최초 형성 시 관리자 가복제 수량 결정
+- Server-Initiated (서버가 복사)
+- Client-Initiated (클라이언트가 복사((예) 캐시를 사용하는 것))
+
+<br>
+<br>
+
+#### Server-Initiated Replicas (파일마다 Access Count 저장)
+- File-Access를 Count 하여 Threshold를 정함
+
+<br>
+<br>
+
+### CDN(Content Distribution Network)
+- Access 시간을 단축시키기 위해 주로 사용
+- 여러 위치에 분산된 데이터를 요청할 때 실행 분산
+- 접근 시간 단축을 위해 많이 사용
+
+1. State보다 Operation
+- 업데이트 메시지 전파
+- 복제에서 다른 복제로 데이터 전송
+- 다른 복제에서 업데이트 Operation 전파
+
+<br>
+
+2. pull vs protocols
+
+#### Pull
+- 서버에 Update Data를 요청하여 수신 (업데이트를 상대에게 알려주고 가져옴)
+- 서버의 상태를 유지하지는 않음 
+- Push보다 오래걸림 (Fetch Update 시간 필요)
+
+#### Push
+- 서버로부터 Update Data를 받음 
+- 서버 상태, 복제 목록, Data 저장을 위한 Cache 필요 
+- 즉시 실행 가능
+
+<br>
+<br>
+
+#### Remote-Write Protocols (primary based)
+- Primary Backup(Replica) 서버 존재
+- Synchronous 방식  - Write 시간이 오래 걸리며, 그동안 Client는 Block 됨
+- Read는 Client에서 가까운 Backup 서버에서 수행
+
+<br>
+
+### Local-Write Protocols
+- Client로부터 Write를 요청받은 Backup이 Primary가 됨
+- Remote-Write보다 Write 시 Client의 Block 시간이 짧음
+- Read 절차는 Remote-Write와 동일
+
+<br>
+<br>
+
+### Quorum-Based Protocols (Replicated Protocols) 
+- 일정 정족수(과반수) 이상을 만족할 경우 Update 수행 
+- 중복이 허용됨; Read Peer와 Write Peer가 중복될 수 있음
+
+<br>
+<br>
+
+## 분산시스템의 결함 허용 (Fault Tolerance)
+
+### Fault Tolerance : 분산시스템상 어느 정도 Fault가 발생해도 시스템이 Crash 되지 않음
+
+<br>
+<br>
+
+### Fault Tolerance의 요소
+- 가용성(Availability)
+- 신뢰성(Reliability)
+- 안정성(Safety)
+- 유지보수성(Maintenance)
+
+<br>
+<br>
+
+### Failure Models
+1. crash
+2. omission (생략)
+3. timing
+4. response 
+5. arbitary (임의)
+
+<br>
+<br>
+
+### failure 극복 방안 (Failure Masking by Redundancy )
+
+- 어떤 node의 fail이 발생하면 vote에 연결된 Redundancy의 절반 이상이면 정상, 아니면 fail
+
+<br>
+<br>
+
+### 분산시스템 내 합의의 고려사항 (Failure Masking by Redundancy)
