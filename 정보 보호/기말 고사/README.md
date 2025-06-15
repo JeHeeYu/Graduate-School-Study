@@ -1,6 +1,7 @@
 # 정보 보호 기말 고사 정리 내용
 
-## 6. DH(Diffie-Hellman) 키 교환의 원리
+<details>
+<summary><h2>6. DH(Diffie-Hellman) 키 교환의 원리</h2></summary>
 
 ### 교환 개념 요약
 **두 당사자(앨리스, 밥)** 가 서로의 비밀키를 공개하지 않고도 공유된 비밀키(Session Key)를 안전하게 합의할 수 있도록 하는 방법
@@ -11,6 +12,8 @@ p, g 모두 공개값
 
 <br>
 <br>
+
+
 
 ### 수학적 원리
 
@@ -67,3 +70,11 @@ p, g 모두 공개값
 |공유키 계산|g^ab mod p (서로 다른 방식으로 동일 결과 도출)|
 |보안성|g^x mod p = y일 때, x를 유추하는 것이 어렵다는 수학적 성질|
 |활용|ElGamal, SSL/TLS, IPSec, PGP, ECDH 등|
+
+
+
+</details>
+  
+<br>
+
+
