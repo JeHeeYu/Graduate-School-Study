@@ -456,6 +456,15 @@ p, g 모두 공개값
 
 ### 순서
 
+1. 클라이언트가 난수를 생성하여 서버로 전송
+2. 서버가 난수를 생성하고 인증키 등을 종합하여 클라이언트로 응답
+3. Key Exchange 과정에서 pre master key 생성
+4. 두 난수들과 pre master key를 이용하여 master key 생성
+5. 대칭 암호 키, 메시지 인증 코드 키, CBC 초기화 벡터 생성
+
+
+
+
 |단계|설명|
 |:---:|:---|
 |ClientHello|client_random 전송|
