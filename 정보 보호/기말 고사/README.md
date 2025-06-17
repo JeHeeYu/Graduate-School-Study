@@ -77,4 +77,36 @@ p, g 모두 공개값
   
 <br>
 
+<details>
+<summary><h2>14. TLS : 마스터 secret 생성 과정</h2></summary>
 
+### 순서
+
+|단계|설명|
+|:---:|:---|
+|ClientHello|client_random 전송|
+|ServerHello|server_random + 인증서 + 서버 공개키 전송|
+|ClientKeyExchange|클라이언트 공개키 전송|
+|양측 공유키 생성|ECDHE 방식으로 공유 Premaster Secret 생성|
+|Master Secret 생성|	PRF(pre_master, "master secret", client_random + server_random)|
+|Key Block 생성|	PRF(master_secret, "key expansion", server_random + client_random)|
+
+<br>
+<br>
+
+### 구성 요소 설명
+
+|요소|설명|
+|:---:|:---|
+|client_random|클라이언트가 생성한 32바이트 랜덤|
+|server_random|서버가 생성한 32바이트 랜덤|
+|Premaster Secret|ECDHE 또는 RSA로 교환한 임시 비밀|
+|Master Secret|	PRF를 통해 생성 (총 48바이트)|
+|Key Block|암호화 키, MAC 키, IV 등을 포함한 키 집합|
+
+  
+
+
+</details>
+  
+<br>
