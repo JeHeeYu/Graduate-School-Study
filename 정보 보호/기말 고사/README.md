@@ -1,5 +1,88 @@
 # 정보 보호 기말 고사 정리 내용
 
+
+<details>
+<summary><h2>2~5. DES 암호화</h2></summary>
+
+### 1. DES (Data Encryption Standard) 핵심 정리
+
+|항목|내용|
+|:---:|:---|
+|종류|대칭키 블록 암호 (Feistel 구조)|
+|키 길이|	64bit 중 유효 키는 56bit (8bit는 패리티용)|
+|블록 길이|	64bit|
+|라운드 수|16 라운드|
+|암호 방식|Feistel Network 구조 사용|
+|연산 특징|Subkey는 각 라운드마다 다르고, 암호화·복호화 구조는 동일 (subkey 순서만 역방향)|
+
+#### DES 구조 요약
+- 평문 64bit → 좌우 32bit로 분할
+- R → F(R, Ki) → 결과를 L에 XOR → 새 R로 사용
+- 16번 반복
+- 마지막에 좌우 교환 없이 종료 (복호화 가능하도록)
+
+<br>
+
+#### 주요 개념
+- Confusion : S-Box로 혼란도 증대
+- Diffusion : P-Box로 확산
+- Avalanche 효과 : 입력 1bit만 바뀌어도 출력이 크게 변함
+
+<br>
+
+### 2. Triple DES (3DES)
+
+|항목|내용|
+|:---:|:---|
+|이유|DES는 56bit로 짧아 Brute-force에 취약|
+|방식|	EDE 구조가 일반적 (Encrypt-Decrypt-Encrypt)|
+|키 사용|2키 (112bit), 3키 (168bit)|
+|보안 수준|2DES는 Meet-in-the-middle 공격에 약함, 3DES는 안전하지만 느림|
+|비고|현재는 대부분 사용 중단 추세 (대체 : AES)|
+
+<br>
+
+### 3. AES (Advanced Encryption Standard)
+
+|항목|내용|
+|:---:|:---|
+|구조|SPN (Substitution–Permutation Network)|
+|블록 길이|128bit 고정|
+|키 길이|128 / 192 / 256 bit|
+|라운드 수|10 / 12 / 14 (키 길이에 따라 다름)|
+|특징|	소프트웨어 구현 용이, 높은 보안성, 빠른 처리 속도|
+
+<br>
+
+### 4. 우리나라 대칭키 암호
+
+#### 1. SEED
+- 블록 길이 : 128bit
+- 키 길이 : 128bit
+- 구조 : Feistel
+- 개발 : KISA (한국인터넷진흥원)
+- 표준 : TTA, ISO/IEC
+
+#### 2. ARIA
+- 블록 길이 : 128bit
+- 키 길이 : 128 / 192 / 256 bit
+- 구조 : SPN (ISPN: Involutional SPN)
+- 특징 : 암·복호화 구조 동일 / 고속·저전력 환경 적합
+- 표준 : 국내/국제 표준 모두 등재
+
+<br>
+
+### 5. DES의 문제점
+- 56bit 키로 인해 Brute-force에 취약
+- 취약키 존재 (암호문을 복호화해도 평문 그대로 나옴)
+- 미국 NSA도 1986년 이후 안전성 보장 못 함
+
+
+</details>
+  
+<br>
+
+
 <details>
 <summary><h2>6. DH(Diffie-Hellman) 키 교환의 원리</h2></summary>
 
@@ -79,7 +162,7 @@ p, g 모두 공개값
 
 
 <details>
-<summary><h2>6. DH(Diffie-Hellman) 키 교환의 원리</h2></summary>
+<summary><h2>7~8. RSA 의 암호알고리즘 전반적인 사항</h2></summary>
 
 ### 기본 개념
 - 비대칭키 암호 방식 (공개키 암호)
