@@ -79,6 +79,67 @@ p, g 모두 공개값
 
 
 <details>
+<summary><h2>9~10. 블록 암호 운영모드 개념 정도</h2></summary>
+
+### 1. ECB (Electronic Code Book)
+- 원리 : 각 블록을 독립적으로 암호화
+- 암호화식 : Ci = E(K, Pi)
+- 장점 : 병렬 처리 가능, 구현 쉬움
+- 단점 : 동일 평문 → 동일 암호문 → 패턴 유출, 보안 매우 취약
+- 예시 : 이미지 파일을 암호화해도 윤곽이 보임
+- **안전하지 않음 절대 사용 불가**
+
+<br>
+
+### 2. CBC (Cipher Block Chaining)
+- 원리 : 이전 암호문과 XOR 후 암호화
+- 암호화식 : Ci = E(K, Pi ⊕ Ci-1) (C0 = IV)
+- 복호화식 : Pi = D(K, Ci) ⊕ Ci-1
+- 초기값(IV) : 반드시 필요. 동일해야 복호화 가능
+- 장점 : 동일한 평문이라도 다른 암호문 생성 (패턴 깨짐)
+- 단점 : 암호화 시 병렬처리 X (복호화는 가능), 에러 전파 있음
+- TLS/SSL 등 실제 시스템에서 사용됨
+
+<br>
+
+### 3. CFB (Cipher Feedback)
+- 원리 : 암호문을 피드백하여 다음 블록 암호화
+- 암호화식 : Ci = Pi ⊕ E(K, Ci-1)
+- 복호화식 : Pi = Ci ⊕ E(K, Ci-1)
+- 장점 : 패딩 불필요, 스트림 암호처럼 작동
+- 단점 : 병렬처리 X, 재전송 공격에 취약
+- 현재는 거의 사용 X
+
+<br>
+
+### 4. OFB (Output Feedback)
+- 원리 : 암호 알고리즘의 출력을 다시 입력 → 키스트림 생성
+- 암호화식 : Ci = Pi ⊕ Oi (Oi = E(K, Oi-1))
+- 복호화식 : 동일 (대칭)
+- 장점 : 암호화·복호화 구조 동일, 오류 전파 없음
+- 단점 : 암호문 블록이 반복되면 키스트림도 반복됨 (보안 취약)
+- 실사용 비권장
+
+<br>
+
+### 5. CTR (Counter Mode)
+- 원리: nonce + counter → 암호화 → 키스트림 생성
+- 암호화/복호화: Ci = Pi ⊕ E(K, counter_i)
+- 장점
+  - 병렬 처리 가능 (암·복호화 모두)
+  - 스트림 암호처럼 빠르고 효율적
+  - 패딩 불필요
+  - 키스트림 미리 생성 가능
+- 최신 암호화 표준에서 가장 권장되는 방식 (TLS 1.3 포함)
+
+
+
+</details>
+  
+<br>
+
+
+<details>
 <summary><h2>13. 전자서명</h2></summary>
 
 ### 전자 서명이란
@@ -179,6 +240,51 @@ p, g 모두 공개값
 
   
 
+
+</details>
+  
+<br>
+
+
+
+<details>
+<summary><h2>15. 비트코인의 주소 생성 과정</h2></summary>
+
+### 1. 개인키 (Private Key) 생성
+- 256비트 난수(random number) 생성
+  - 예 : k = 0xAB23... (64자리 16진수, 256비트)
+- 완전 랜덤, 소유자의 비밀키 → 지갑에서 생성됨
+
+<br>
+
+### 2. 2단계: 공개키 (Public Key) 생성
+- 개인키 k를 바탕으로 타원곡선 곱셈 (ECC)
+  - Q = k * G
+      - G: 기준점 (Elliptic Curve secp256k1 상의 고정점)
+      - Q = (x, y): 512비트의 공개키 (x,y 좌표 256비트씩)
+
+- 공개키만 알면 개인키를 알 수 없다 (일방향)
+
+<br>
+
+### 3. 공개키 → 해시 (Public Key Hash)
+
+- 공개키를 압축된 주소로 만들기 위해 해싱
+  - 1차 해시: SHA256(PubKey) → 256bit
+  - 2차 해시: RIPEMD160(SHA256(PubKey)) → 160bit
+  - 이 결과를 PubKeyHash라고 함
+
+<br>
+
+### 4. 4단계: 주소 포맷 변환 (Base58Check 인코딩)
+- Base58Check 인코딩:
+  - Prefix (네트워크 타입):
+    - 메인넷: 0x00 (즉, 시작문자 1)
+  - Payload: PubKeyHash
+  - Checksum: SHA256(SHA256(Prefix + Payload))의 앞 4바이트
+- 위 모두를 합쳐 Base58 인코딩 → 사람 읽기 가능한 주소 생성
+  - 예: 1Cdid9KFAaatwczBwBttQcwXYCpvK8h7FK
+ 
 
 </details>
   
