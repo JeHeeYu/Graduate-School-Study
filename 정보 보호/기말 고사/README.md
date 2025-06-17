@@ -5,6 +5,7 @@
 <summary><h2>2~5. DES 암호화</h2></summary>
 
 ### 1. DES (Data Encryption Standard) 핵심 정리
+- 64bits plain text를 64bits cipher text로 암호화하는 대칭 암호 알고리즘
 
 |항목|내용|
 |:---:|:---|
