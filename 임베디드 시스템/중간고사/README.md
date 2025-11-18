@@ -388,3 +388,14 @@ complete
 - r1 과 r2 가 동일해진 순간 → 그 값이 GCD
 - 여기서 함수 종료 또는 결과 반환 로직 수행
 
+<br>
+<br>
+
+## 조건부 코드 설명
+
+|코드|약자|설명|
+|:---:|:---:|:---|
+|ADDEQ|EQ (Equal)|r0 == r1 일 때만 실행|
+|ADDNE|NE (Not Equal)|r0 != r1 일 때만 실행|
+|ADDGT|GT (Greater Than)|r0 > r1 일 때만 실행|
+|ADDLT|LT (Less Than)|r0 < r1 일 때만 실행|
