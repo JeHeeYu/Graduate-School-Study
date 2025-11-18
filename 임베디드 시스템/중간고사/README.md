@@ -43,7 +43,7 @@
 - ARM 상태 강제 전환
 - 예외 전용 모드로 진입
 - 인터럽트 비트 설정
-- 복귀 주소 (LR_<mode>) 저장
+- 복귀 주소 (LR_mode) 저장
 - 백터 주소로 PC 점프
 
 <br>
@@ -51,8 +51,8 @@
 
 ## 예외 복귀 (Return From Exception) 과정 - 시험 문제
 예외가 끝나고 원래 실행하던 코드로 돌아가는 과정을 말함
-- CPSR을 SPSR_<mode> 에서 복원
-- PC를 LR_<mode> 에서 복원
+- CPSR을 SPSR_mode 에서 복원
+- PC를 LR_mode 에서 복원
 
 <br>
 
