@@ -4,14 +4,15 @@
 - Variable Cycle Instructions (가변 사이클 명령)
   - LDM/STM(Multiple Load/Store)
   - SWP(swap, atomic)
-- Inline Baerrel Shifter
+- Inline Baerrel Shifter (명령어 내장 시프트 기능)
   - 하나의 명령어 안에서 연산 + 시프트 동시 수행 가능
 - Thumb (16-bit instruction set)
   - 코드 사이즈를 줄이기 위해 16비트 명령어 집합 제공
   - 성능은 다소 떨어지지만 메모리 절약 큰 장점
 - Conditional Execution (조건부 실행)
   - 대부분의 명령어는 조건코드를 붙여 실행 할지말지 결정 가능
-- Enhanced DSP Instructions
+- Enhanced DSP Instructions (DSP 연산 강화 기능)
+  - DSP 연산을 빠르게 하기 위한 추가된 명령어들을 말함
   - MAC(Multiple-Accumulate), Saturation 연산 포함
  
 <br>
