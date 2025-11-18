@@ -302,7 +302,7 @@ Postindex :                   주소 = r1,       r1 = r1 + 4
     B       gcd           ; 다시 반복
 
 lessthan
-    SUB     r2, r2, r1    ; r1 < r2 인 경우 r2 = r2 - r1
+    SUB     r2, r2, r1    ; r2 > r1 인 경우 r2 = r2 - r1
     B       gcd           ; 다시 반복
 
 complete
