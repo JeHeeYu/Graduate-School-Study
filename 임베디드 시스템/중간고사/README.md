@@ -1,5 +1,5 @@
 
-## ARM Design Philosophy (ARM 설계 철학) - 시험 문제
+## ARM Design Philosophy (ARM 설계 철학) 
 
 - Variable Cycle Instructions (가변 사이클 명령)
   - LDM/STM(Multiple Load/Store)
@@ -36,7 +36,7 @@
 <br>
 <br>
 
-## 예외 발생 시(When an Exception Occurs) ARM이 수행하는 전체 과정 - 시험 문제
+## 예외 발생 시(When an Exception Occurs) ARM이 수행하는 전체 과정 
 
 전체 흐름 요약
 - 이전 상태 보존 (CPSR -> SPSR)
@@ -49,7 +49,7 @@
 <br>
 <br>
 
-## 예외 복귀 (Return From Exception) 과정 - 시험 문제
+## 예외 복귀 (Return From Exception) 과정 
 예외가 끝나고 원래 실행하던 코드로 돌아가는 과정을 말함
 - CPSR을 SPSR_mode 에서 복원
 - PC를 LR_mode 에서 복원
@@ -62,7 +62,7 @@
 <br>
 <br>
 
-## 산술 명령어 예제 - 시험 문제
+## 산술 명령어 예제 
 <img width="321" height="203" alt="image" src="https://github.com/user-attachments/assets/5c8d4955-2918-431b-b622-6eb28813bdc9" />
 
 - PRE(실행 전)
@@ -119,7 +119,7 @@ POST 상태
 <br>
 <br>
 
-## CMP 명령어 - 시험 문제
+## CMP 명령어 
 <img width="350" height="207" alt="image" src="https://github.com/user-attachments/assets/530d48a9-3618-44e7-9b31-620fd5b91a50" />
 <img width="720" height="540" alt="image" src="https://github.com/user-attachments/assets/d78083cb-6093-4935-840e-02200a1f86c4" />
 
@@ -302,7 +302,7 @@ Postindex :                   주소 = r1,       r1 = r1 + 4
 <br>
 <br>
 
-## 조건부 실행 : 최대 공약수 예제 - 시험 문제
+## 조건부 실행 : 최대 공약수 예제 
 
 <pre>
   gcd
