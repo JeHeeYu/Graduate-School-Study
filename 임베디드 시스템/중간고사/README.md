@@ -5,8 +5,8 @@
   - LDM/STM(Multiple Load/Store)
   - SWP(swap, atomic)
 - Inline Baerrel Shifter
-  -  하나의 명령어 안에서 연산 + 시프트 동시 수행 가능
--  Thumb (16-bit instruction set)
+  - 하나의 명령어 안에서 연산 + 시프트 동시 수행 가능
+- Thumb (16-bit instruction set)
   - 코드 사이즈를 줄이기 위해 16비트 명령어 집합 제공
   - 성능은 다소 떨어지지만 메모리 절약 큰 장점
 - Conditional Execution (조건부 실행)
