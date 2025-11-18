@@ -287,3 +287,93 @@ Postindex :                   주소 = r1,       r1 = r1 + 4
   r0 = 0x01010101
   r1 = 0x00009004
 </pre>
+
+<br>
+<br>
+
+## 조건부 실행 : 최대 공약수 예제 - 시험 문제
+
+<pre>
+  gcd
+    CMP     r1, r2        ; r1 - r2 결과로 플래그 설정
+    BEQ     complete      ; r1 == r2 이면 종료로 이동
+    BLT     lessthan      ; r1 < r2 이면 lessthan 레이블로 이동
+    SUB     r1, r1, r2    ; r1 > r2 인 경우 r1 = r1 - r2
+    B       gcd           ; 다시 반복
+
+lessthan
+    SUB     r2, r2, r1    ; r1 < r2 인 경우 r2 = r2 - r1
+    B       gcd           ; 다시 반복
+
+complete
+    ...                   ; GCD 계산 완료
+</pre>
+
+### 레이블(Label) 의미 요약표
+
+| 레이블 이름 | 원뜻(약자) | 의미 | 언제 실행되는가 |
+|-------------|------------|-------|------------------|
+| **gcd** | Greatest Common Divisor | GCD 메인 루프 시작 위치 | 매 반복마다 `B gcd` 로 돌아올 때 |
+| **lessthan** | Less Than | r1 < r2 인 경우 r2 = r2 - r1 수행 | `BLT lessthan` 조건 만족 시 |
+| **complete** | Complete | 최대공약수 계산 완료 지점 | `BEQ complete` 조건 만족 시 |
+
+---
+
+### 조건 분기 명령어 요약
+
+| 명령어 | 의미(약자) | 동작 조건 | 사용 플래그 |
+|--------|------------|-----------|--------------|
+| **CMP r1, r2** | Compare | r1 - r2 수행 후 플래그 설정 | N, Z |
+| **BEQ label** | Branch if Equal | r1 == r2 → Z=1 일 때 분기 | Z |
+| **BLT label** | Branch if Less Than | r1 < r2 → N=1 일 때 분기 | N |
+| **B label** | Branch | 무조건 분기 | 없음 |
+
+### 상세 설명
+
+CMP r1, r2
+- 실제 뺄셈을 수행하진 않음
+- 내부적으로 r1 - r2 계산 후 플래그(N, Z, C, V) 를 설정함
+  - Z = 1 → r1 == r2
+  - N = 1 → r1 < r2
+  - N = 0 → r1 > r2
+ 
+<br>
+
+BEQ complete
+- Z 플래그가 1이면(branch if equal) 이동
+- 즉, r1 == r2 → GCD 완료
+
+<br>
+
+BLT lessthan
+- N 플래그가 1이면(branch if less than) 이동
+- 즉, r1 < r2 → 작은 쪽(r1)을 빼는 게 아니라 큰 쪽(r2)에서 작은 쪽(r1)을 빼기 위해 lessthan으로
+
+<br>
+
+SUB r1, r1, r2
+- r1 > r2 인 경우만 도달함
+- r1 = r1 - r2
+
+<br>
+
+B gcd
+- 레이블 gcd 로 다시 점프
+- 반복 진행
+
+<br>
+
+lessthan 레이블
+<pre>
+  SUB r2, r2, r1   ; r2 = r2 - r1
+  B   gcd
+</pre>
+- 이 부분은 r1 < r2 인 경우
+- 큰 값(r2)에서 작은 값(r1)을 뺀 뒤 다시 반복
+
+<br>
+
+complete
+- r1 과 r2 가 동일해진 순간 → 그 값이 GCD
+- 여기서 함수 종료 또는 결과 반환 로직 수행
+
