@@ -114,3 +114,176 @@ r1의 값은 0x00000005 (십진수 5) 이고 이걸 2진수로 하면
 POST 상태
 - r0 = 0x0000000f
 - r1 = 0x00000005 (소스 레제스터라 값이 바뀌지 않음)
+
+<br>
+<br>
+
+## CMP 명령어 - 시험 문제
+<img width="350" height="207" alt="image" src="https://github.com/user-attachments/assets/530d48a9-3618-44e7-9b31-620fd5b91a50" />
+<img width="720" height="540" alt="image" src="https://github.com/user-attachments/assets/d78083cb-6093-4935-840e-02200a1f86c4" />
+
+<br>
+
+CMP 정의
+- 비교(Compare) 명령어
+- 내부적으로 뺼셈(SUB)을 하고,
+- 결과값은 어디에도 저장하지 않으며,
+- CPSR의 플래그(N, Z, C, V)만 갱신
+
+<br>
+
+<pre>
+  CMP r0, r1
+</pre>
+
+의 논리는
+<br>
+- r0 - r1 을 계산해서 결과는 버리고,
+- 그 연산 결과에 따라 CPSR 의 플래그만 설정
+
+<br>
+<br>
+
+### CPSR 문법
+
+<pre>
+CMP<cond> <Rn>, #<rotated_immed>
+CMP<cond> <Rn>, <Rm> {, <shift>}
+; 예) CMP r0, r1   → r0 - r1
+</pre>
+- Rn : 첫 번째 피연산자
+- Rm : 두 번째 피연산자 (또는 즉값)
+- {, shift} : 두 번째 피연산자에서 배럴 시프터 적용 가능
+
+<br>
+
+즉, 일반적인 데이터 처리 명령어 형식 (OP Rd, Rn, Operand2 에서)
+- Rd가 없고
+- 연산은 Rn - Operand2
+- 결과는 버린 후 플래그만 설정
+
+<br>
+<br>
+
+### CMP 예제 설명
+
+PRE(실행 전)
+- cpsr = nzcvqift_USER (플래그 상태 중요 X, 형식만 표시)
+- r0 = 4
+- r9 = 4
+
+<br>
+
+명령어
+<pre>
+  CMP r0, r9
+</pre>
+
+이 명령어가 하는 계산 : r0 - r9 == 4 - 4 = 0 연산을 수행
+- 연산 결과가 0임
+  - 결과가 0이면 Z 플래그 = 1 (Set)
+  - 결과가 양수/음수에 따라 N 플래그
+  - borrow/overflow 여부에 따라 C, V 플래그 결정
+- 즉 결과는 다음과 같음
+  - 4 - 4 = 0 -> 음수 아님 -> N = 0
+  - borrow 없음 -> C = 1
+  - overflow 없음 -> V = 0
+  - 결과 0 -> Z = 1
+
+<br>
+
+POST(실행 후)
+- cpsr의 Z 비트가 1로 세팅
+- r0, r9의 값은 절대 변하지 않음
+- r0 = 4 (그대로)
+- r9 = 4 (그대로)
+- CPSR만 바뀌어서 Z = 1이 됨
+
+<br>
+<br>
+
+## 단일 레지스터 전송 주소 지정 방식
+
+주소 지정 방식 3가지 정리
+
+|방식|Effective Address|Base Register(r1 등)|예제 형태|
+|:---:|:---:|:---:|:---:|
+|Preindex|base + offset|base (변화 없음)|LDR r0, [r1, #4]|
+|Preindex with writeback|base + offset|base ← base + offset|LDR r0, [r1, #4]!|
+|Postindex|base|base ← base + offset|LDR r0, [r1], #4|
+
+<pre>
+Preindex :                    주소 = r1 + 4,   r1 그대로
+Preindex with writeback :     주소 = r1 + 4,   r1 = r1 + 4
+Postindex :                   주소 = r1,       r1 = r1 + 4
+</pre>
+
+<br>
+<br>
+
+<img width="591" height="312" alt="image" src="https://github.com/user-attachments/assets/e1da0d93-89a6-461a-a93d-623a1e734c6c" />
+
+<br>
+
+### 예제 1 — Preindex
+
+<pre>
+  명령어
+  LDR r0, [r1, #4]
+
+  1단계 : 주소 계산
+  preindex는 먼저 offset을 더함
+  addr = r1 + 4 = 0x9000 + 0x4 = 0x9004
+
+  2단계 : 메모리 로드
+  r0 = mem32[0x9004] = 0x02020202
+
+  3단계: r1 변화 없음
+  preindex는 writeback이 없기 때문에 r1 그대로.
+
+  실행 결과
+  r0 = 0x02020202
+  r1 = 0x00009000
+</pre>
+
+<br>
+
+### 예제 2 — Preindex with writeback
+
+<pre>
+  명령어
+  LDR r0, [r1, #4]!
+
+  1단계 : 주소 계산
+  preindex니까 똑같이 먼저 더함
+  addr = r1 + 4 = 0x9004
+
+  2단계 : 메모리 로드
+  r0 = mem32[0x9004] = 0x02020202
+
+  3단계: r1 업데이트 (writeback)
+  r1 = r1 + 4 = 0x9004
+
+  실행 결과
+  r0 = 0x02020202
+  r1 = 0x00009004
+</pre>
+
+<br>
+
+예제 3 — Postindex
+<pre>
+  명령어
+  LDR r0, [r1], #4
+
+  1단계 : 메모리 접근 먼저 (r1 그대로 사용)
+  addr = r1 = 0x9000
+  r0 = mem32[0x9000] = 0x01010101
+
+  2단계 : r1 업데이트 (나중에 offset 적용)
+  r1 = r1 + 4 = 0x9004
+
+  실행 결과
+  r0 = 0x01010101
+  r1 = 0x00009004
+</pre>
