@@ -399,3 +399,5 @@ complete
 |ADDNE|NE (Not Equal)|r0 != r1 일 때만 실행|
 |ADDGT|GT (Greater Than)|r0 > r1 일 때만 실행|
 |ADDLT|LT (Less Than)|r0 < r1 일 때만 실행|
+|ADDGE|GE (Greater or Equal)|r0 ≥ r1 일 때만 실행|
+|ADDLE|LE (Less or Equal)|r0 ≤ r1 일 때만 실행|
