@@ -133,6 +133,16 @@ CMP 정의
 
 <br>
 
+CPSR Condition Flags: bits[31:28]
+|비트위치|플래그|설명|
+|:---:|:---:|:---|
+|bit[31]|N(Negative)|연산 결과가 마이너스일 경우 1|
+|bit[30]|Z(Zero)|연산한 결과가 0인 경우 1|
+|bit[29]|C(Carry)|연산 결과로 자리 올림이 생길 경우 1|
+|bit[28]|V(oVerflow)|연산 결과가 오버플로우일 경우 1|
+
+<br>
+
 <pre>
   CMP r0, r1
 </pre>
