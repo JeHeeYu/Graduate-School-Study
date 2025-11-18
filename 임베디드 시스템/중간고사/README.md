@@ -4,7 +4,7 @@
 - Variable Cycle Instructions (가변 사이클 명령)
   - LDM/STM(Multiple Load/Store)
   - SWP(swap, atomic)
-- Inline Baerrel Shifter (명령어 내장 시프트 기능)
+- Inline Barrel Shifter (명령어 내장 시프트 기능)
   - 하나의 명령어 안에서 연산 + 시프트 동시 수행 가능
 - Thumb (16-bit instruction set)
   - 코드 사이즈를 줄이기 위해 16비트 명령어 집합 제공
