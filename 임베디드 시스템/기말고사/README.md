@@ -38,18 +38,20 @@
 - 낮은 주소 -> 높은 주소 방향으로 쌓임
 - 먼저 선언된 변수일 수록 낮은 주소
 
-<pre
-  char a;
-  char b;
-  char c;
-  char d;
+<pre>
+char a;
+char b;
+char c;
+char d;
+</pre>
+<pre>
 높은 주소
 [d]
 [c]
 [b]
 [a]
 낮은 주소
-  </pre>
+</pre>
 
 
 <br>
@@ -61,4 +63,4 @@
   - SFP(Stack Frame Pointer)
   - Return Adress
  
-- 
+
