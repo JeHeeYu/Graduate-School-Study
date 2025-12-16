@@ -147,3 +147,20 @@ ACID 특성
   - 동시에 실행되는 트랜잭션은 서로 중간 결과에 접근 불가
 - 지속성(Durability)
   - 커밋 결과는 영구 저장
+ 
+<br>
+<br>
+
+CREATE TABLE Member (
+member_no INT AUTO_INCREMENT PRIMARY KEY, -- 회원번호 (PK, AI)
+id VARCHAR(50) NOT NULL UNIQUE,
+passwd VARCHAR(255) NOT NULL,
+name VARCHAR(50) NOT NULL,
+level_no INT NOT NULL, -- 이름/도메인 맞춤
+regdate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 가입일자 (기본값 현재시간)
+
+CONSTRAINT fk_member_level FOREIGN KEY (level_no)
+REFERENCES MemberLevel(level_no)
+ON UPDATE CASCADE -- 부모테이블의 PK값이 바뀌면 FK도 변경됨
+ON DELETE RESTRICT -- 부모테이블의 행 삭제하는 경우 자식 테이블에서 참조하는 데이터가 있으면 삭제를 금지
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
