@@ -91,3 +91,32 @@ char d;
 <br>
 
 리틀 엔디안은 정수는 메모리에 반대 방향으로 저장됨
+
+<br>
+<br>
+
+## 스택
+
+<img width="1421" height="354" alt="image" src="https://github.com/user-attachments/assets/a8aacfc2-e0d9-4752-b1d4-1fdf070f5d1f" />
+
+가장 먼저 처리해야 될 것을 가장 가까운 곳에 저장함
+<br>
+높은 주소 -> 낮은 주소 방향으로 자람
+
+<br>
+
+Stack Frame 구성
+- 지역 변수 (buffer 포함)
+- SFP (Stack Frame Pointer)
+- Return Address
+
+<br>
+
+<pre>
+  높은 주소
+[ Return Address ]
+[ SFP ]
+[ 지역 변수 / buffer ]
+낮은 주소
+</pre>
+
