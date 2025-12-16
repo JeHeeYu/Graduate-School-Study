@@ -62,5 +62,32 @@ char d;
   - 지역 변수 (버퍼 포함)
   - SFP(Stack Frame Pointer)
   - Return Adress
- 
 
+<pre>
+높은 주소
+[ Return Address ]
+[ SFP ]
+[ 지역 변수 / buffer ]
+낮은 주소
+</pre>
+
+<br>
+<br>
+
+## 메모리
+
+메모리 맵
+
+<img width="1417" height="379" alt="image" src="https://github.com/user-attachments/assets/f5536c72-be96-4456-9a99-ec8d72c43527" />
+
+<br>
+
+메모리 변조 : 버퍼 사이즈를 넘어선 입력으로 옆에 있는 메모리 값이 바뀌는 것
+<br>
+- 스택 : 위 -> 아래 방향
+- 힙 : 아래 -> 위 방향
+
+<br>
+<br>
+
+리틀 엔디안은 정수는 메모리에 반대 방향으로 저장됨
